@@ -186,8 +186,6 @@ gamma=[25,100];
 [Mx_full_EEG1,phx_full_EEG1,f_full_EEG1] = fourier_dt(EEG1,Fs,'full');
 [Mx_full_EEG2,phx_full_EEG2,f_full_EEG2] = fourier_dt(EEG2,Fs,'full');
 
-
-
 p_EEG1_delta=bandpower(Mx_full_EEG1, Fs, delta) 
 p_EEG1_theta=bandpower(Mx_full_EEG1, Fs, theta) 
 p_EEG1_alpha=bandpower(Mx_full_EEG1, Fs, alpha) 
@@ -198,7 +196,7 @@ x=categorical({'delta', 'theta', 'alpha',  'beta', 'gamma'});
 x=reordercats(x,{'delta', 'theta', 'alpha',  'beta', 'gamma'})
 y1=[p_EEG1_delta p_EEG1_theta p_EEG1_alpha p_EEG1_beta p_EEG1_gamma]
 figure(1)
-bar(x,y1) 
+bar(x,y) 
 ylabel('Average Band Power')
 xlabel('Frequency Range')
 title('Band Power at Each Frequency Range EEG1')
@@ -211,52 +209,17 @@ p_EEG2_alpha=bandpower(Mx_full_EEG2, Fs, alpha)
 p_EEG2_beta=bandpower(Mx_full_EEG2, Fs, beta) 
 p_EEG2_gamma=bandpower(Mx_full_EEG2, Fs, gamma)  
 
+
 y2=[p_EEG2_delta p_EEG2_theta p_EEG2_alpha p_EEG2_beta p_EEG2_gamma]
 figure(2)
-bar(x,y2) 
+bar(x,y) 
 ylabel('Average Band Power')
 xlabel('Frequency Range')
 title('Band Power at Each Frequency Range EEG2')
 
 
 
-bandwidth=[3 5 5 12 75];
-y1_normalized=y1./bandwidth;
-y2_normalized=y2./bandwidth;
-
-figure(3)
-bar(x,y1_normalized) 
-ylabel('Average Band Power')
-xlabel('Frequency Range')
-title('Normalized Band Power at Each Frequency Range EEG1')
-
-figure(4)
-bar(x,y2_normalized) 
-ylabel('Average Band Power')
-xlabel('Frequency Range')
-title('Normalized Band Power at Each Frequency Range EEG2')
-
-%%
-%EEG
-data = load('EEGdata_assignment3.mat');
-EEG1 = data.EEG1;
-EEG2 = data.EEG2;
-Fs = data.Fs;
-
-% signal = fourier_dt(data,frequency,'full');
-% 
-% frequencyplot = 0:0.1:100.1;
-% 
-% plot(frequencyplot,signal)
-
-[Mx_full_EEG1,phx_full_EEG1,f_full_EEG1] = fourier_dt(EEG1,Fs,'full');
-[Mx_full_EEG2,phx_full_EEG2,f_full_EEG2] = fourier_dt(EEG2,Fs,'full');
+bandwidth=[3, 5, 5, 12, 75];
 
 
-spectrogram=spectrogram(Mx_full_EEG1, 50)
 
-% figure(1)
-% plot(f_full_EEG1,spectrogram)
-% ylabel('|X(f)|')
-% xlabel('f (Hz)')
-% title('Two-sided spectrum EEG1')
