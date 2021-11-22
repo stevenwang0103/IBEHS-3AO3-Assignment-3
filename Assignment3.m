@@ -187,16 +187,48 @@ gamma=[25,100];
 [Mx_full_EEG2,phx_full_EEG2,f_full_EEG2] = fourier_dt(EEG2,Fs,'full');
 
 
+% 
+% p_EEG1_delta=bandpower(Mx_full_EEG1, Fs, delta) 
+% p_EEG1_theta=bandpower(Mx_full_EEG1, Fs, theta) 
+% p_EEG1_alpha=bandpower(Mx_full_EEG1, Fs, alpha) 
+% p_EEG1_beta=bandpower(Mx_full_EEG1, Fs, beta) 
+% p_EEG1_gamma=bandpower(Mx_full_EEG1, Fs, gamma)  
+% 
+%EEG2
+N=length(find(f_full_EEG1>-3&f_full_EEG1<3))
+indices=find(f_full_EEG1>-3&f_full_EEG1<3);
+p_EEG1_delta=(1/N)*sum(Mx_full_EEG1(indices).^2)
 
-p_EEG1_delta=bandpower(Mx_full_EEG1, Fs, delta) 
-p_EEG1_theta=bandpower(Mx_full_EEG1, Fs, theta) 
-p_EEG1_alpha=bandpower(Mx_full_EEG1, Fs, alpha) 
-p_EEG1_beta=bandpower(Mx_full_EEG1, Fs, beta) 
-p_EEG1_gamma=bandpower(Mx_full_EEG1, Fs, gamma)  
+Nneg=length(find(f_full_EEG1>-8&f_full_EEG1<=-3))
+Npos=length(find(f_full_EEG1>=3&f_full_EEG1<8))
+indicesNeg=find(f_full_EEG1>-8&f_full_EEG1<=-3);
+indicesPos=find(f_full_EEG1>=3&f_full_EEG1<8);
+p_EEG1_theta=(1/Nneg)*sum(Mx_full_EEG1(indicesNeg).^2)+(1/Npos)*sum(Mx_full_EEG1(indicesPos).^2)
+
+Nneg=length(find(f_full_EEG1>-13&f_full_EEG1<=-8))
+Npos=length(find(f_full_EEG1>=8&f_full_EEG1<13))
+indicesNeg=find(f_full_EEG1>-13&f_full_EEG1<=-8);
+indicesPos=find(f_full_EEG1>=8&f_full_EEG1<13);
+p_EEG1_alpha=(1/Nneg)*sum(Mx_full_EEG1(indicesNeg).^2)+(1/Npos)*sum(Mx_full_EEG1(indicesPos).^2)
+
+
+Nneg=length(find(f_full_EEG1>-25&f_full_EEG1<=-13))
+Npos=length(find(f_full_EEG1>=13&f_full_EEG1<25))
+indicesNeg=find(f_full_EEG1>-25&f_full_EEG1<=-13);
+indicesPos=find(f_full_EEG1>=13&f_full_EEG1<25);
+p_EEG1_beta=(1/Nneg)*sum(Mx_full_EEG1(indicesNeg).^2)+(1/Npos)*sum(Mx_full_EEG1(indicesPos).^2)
+
+Nneg=length(find(f_full_EEG1>=-100&f_full_EEG1<=-25))
+Npos=length(find(f_full_EEG1>=25&f_full_EEG1<=100))
+indicesNeg=find(f_full_EEG1>=-100&f_full_EEG1<=-25);
+indicesPos=find(f_full_EEG1>=25&f_full_EEG1<=100);
+p_EEG1_gamma=(1/Nneg)*sum(Mx_full_EEG1(indicesNeg).^2)+(1/Npos)*sum(Mx_full_EEG1(indicesPos).^2)
+
 
 x=categorical({'delta', 'theta', 'alpha',  'beta', 'gamma'});
 x=reordercats(x,{'delta', 'theta', 'alpha',  'beta', 'gamma'})
 y1=[p_EEG1_delta p_EEG1_theta p_EEG1_alpha p_EEG1_beta p_EEG1_gamma]
+
 figure(1)
 bar(x,y1) 
 ylabel('Average Band Power')
@@ -205,11 +237,35 @@ title('Band Power at Each Frequency Range EEG1')
 
 
 
-p_EEG2_delta=bandpower(Mx_full_EEG2, Fs, delta) 
-p_EEG2_theta=bandpower(Mx_full_EEG2, Fs, theta) 
-p_EEG2_alpha=bandpower(Mx_full_EEG2, Fs, alpha) 
-p_EEG2_beta=bandpower(Mx_full_EEG2, Fs, beta) 
-p_EEG2_gamma=bandpower(Mx_full_EEG2, Fs, gamma)  
+%EEG2
+N=length(find(f_full_EEG2>-3&f_full_EEG2<3))
+indices=find(f_full_EEG2>-3&f_full_EEG2<3);
+p_EEG2_delta=(1/N)*sum(Mx_full_EEG2(indices).^2)
+
+Nneg=length(find(f_full_EEG2>-8&f_full_EEG2<=-3))
+Npos=length(find(f_full_EEG2>=3&f_full_EEG2<8))
+indicesNeg=find(f_full_EEG2>-8&f_full_EEG2<=-3);
+indicesPos=find(f_full_EEG2>=3&f_full_EEG2<8);
+p_EEG2_theta=(1/Nneg)*sum(Mx_full_EEG2(indicesNeg).^2)+(1/Npos)*sum(Mx_full_EEG2(indicesPos).^2)
+
+Nneg=length(find(f_full_EEG2>-13&f_full_EEG2<=-8))
+Npos=length(find(f_full_EEG2>=8&f_full_EEG2<13))
+indicesNeg=find(f_full_EEG2>-13&f_full_EEG2<=-8);
+indicesPos=find(f_full_EEG2>=8&f_full_EEG2<13);
+p_EEG2_alpha=(1/Nneg)*sum(Mx_full_EEG2(indicesNeg).^2)+(1/Npos)*sum(Mx_full_EEG2(indicesPos).^2)
+
+
+Nneg=length(find(f_full_EEG2>-25&f_full_EEG2<=-13))
+Npos=length(find(f_full_EEG2>=13&f_full_EEG2<25))
+indicesNeg=find(f_full_EEG2>-25&f_full_EEG2<=-13);
+indicesPos=find(f_full_EEG2>=13&f_full_EEG2<25);
+p_EEG2_beta=(1/Nneg)*sum(Mx_full_EEG2(indicesNeg).^2)+(1/Npos)*sum(Mx_full_EEG2(indicesPos).^2)
+
+Nneg=length(find(f_full_EEG2>=-100&f_full_EEG2<=-25))
+Npos=length(find(f_full_EEG2>=25&f_full_EEG2<=100))
+indicesNeg=find(f_full_EEG2>=-100&f_full_EEG2<=-25);
+indicesPos=find(f_full_EEG2>=25&f_full_EEG2<=100);
+p_EEG2_gamma=(1/Nneg)*sum(Mx_full_EEG2(indicesNeg).^2)+(1/Npos)*sum(Mx_full_EEG2(indicesPos).^2)
 
 y2=[p_EEG2_delta p_EEG2_theta p_EEG2_alpha p_EEG2_beta p_EEG2_gamma]
 figure(2)
@@ -218,8 +274,15 @@ ylabel('Average Band Power')
 xlabel('Frequency Range')
 title('Band Power at Each Frequency Range EEG2')
 
+%useless stuff
+% p_EEG2_delta=bandpower(Mx_full_EEG2, Fs, delta) 
+% p_EEG2_theta=bandpower(Mx_full_EEG2, Fs, theta) 
+% p_EEG2_alpha=bandpower(Mx_full_EEG2, Fs, alpha) 
+% p_EEG2_beta=bandpower(Mx_full_EEG2, Fs, beta) 
+% p_EEG2_gamma=bandpower(Mx_full_EEG2, Fs, gamma)  
 
 
+%normalized
 bandwidth=[3 5 5 12 75];
 y1_normalized=y1./bandwidth;
 y2_normalized=y2./bandwidth;
@@ -253,7 +316,7 @@ Fs = data.Fs;
 [Mx_full_EEG2,phx_full_EEG2,f_full_EEG2] = fourier_dt(EEG2,Fs,'full');
 
 
-spectrogram=spectrogram(Mx_full_EEG1, 50)
+%spectrogram=spectrogram(Mx_full_EEG1, 50)
 
 % figure(1)
 % plot(f_full_EEG1,spectrogram)
