@@ -210,7 +210,7 @@ p_EEG1_gamma=sum(Mx_full_EEG1(indicesNeg).^2)+sum(Mx_full_EEG1(indicesPos).^2)
 
 
 x=categorical({'delta', 'theta', 'alpha',  'beta', 'gamma'});
-x=reordercats(x,{'delta', 'theta', 'alpha',  'beta', 'gamma'})
+x=reordercats(x,{'delta', 'theta', 'alpha',  'beta', 'gamma'});
 y1=[p_EEG1_delta p_EEG1_theta p_EEG1_alpha p_EEG1_beta p_EEG1_gamma]
 
 figure(1)
@@ -285,19 +285,20 @@ title('Normalized Band Power at Each Frequency Range EEG2')
 
 %%
 %EEG
-data = load('EEGdata_assignment3.mat');
-EEG1 = data.EEG1;
-EEG2 = data.EEG2;
-Fs = data.Fs;
+dataEEG = load('EEGdata_assignment3.mat');
+EEG1 = dataEEG.EEG1;
+EEG2 = dataEEG.EEG2;
+FsEEG = dataEEG.Fs;
+
+dataBFV = load('BFVdata_assignment3.mat');
+BFV = dataBFV.BFVdu;
+FsBFV = dataBFV.Fs;
 
 % signal = fourier_dt(data,frequency,'full');
 % 
 % frequencyplot = 0:0.1:100.1;
 % 
 % plot(frequencyplot,signal)
-
-[Mx_full_EEG1,phx_full_EEG1,f_full_EEG1] = fourier_dt(EEG1,Fs,'full');
-[Mx_full_EEG2,phx_full_EEG2,f_full_EEG2] = fourier_dt(EEG2,Fs,'full');
 
 
 %spectrogram=spectrogram(Mx_full_EEG1, 50)
@@ -307,3 +308,51 @@ Fs = data.Fs;
 % ylabel('|X(f)|')
 % xlabel('f (Hz)')
 % title('Two-sided spectrum EEG1')
+
+
+% plot the spectrograms of the two ECG signals
+%winlen = 3e3;  % length of the windowed segments
+winlenEEG = 400;  % length of the windowed segments
+%overlap = 500; % number of samples overlapping for each window position
+overlapEEG = 350; % number of samples overlapping for each window position
+NFFTEEG = 1000;   % number of points in the FFT (the signal is zero-padded to this length)
+%NFFT = winlenEEG;   % number of points in the FFT (the signal is zero-padded to this length)
+
+figure(1)
+subplot(3,1,1)
+[s_EGC1,f_EGC1,t_EGC1] = spectrogram(EEG1,winlenEEG,overlapEEG,NFFTEEG,FsEEG);
+imagesc(t_EGC1,f_EGC1,abs(s_EGC1)/winlenEEG)
+axis xy
+ylim([0 10])
+title('ECG1')
+ylabel('f (Hz)')
+cb1 = colorbar;
+cb1.Label.String = '|X(f)| (mV)';
+
+
+subplot(3,1,2)
+[s_EGC2,f_EGC2,t_EGC2] = spectrogram(EEG2,winlenEEG,overlapEEG,NFFTEEG,FsEEG);
+imagesc(t_EGC2,f_EGC2,abs(s_EGC2)/winlenEEG)
+axis xy
+ylim([0 10])
+title('ECG2')
+ylabel('f (Hz)')
+xlabel('t (s)')
+cb2 = colorbar;
+cb2.Label.String = '|X(f)| (mV)';
+
+%winlen = 3e3;  % length of the windowed segments
+winlenBFV = 400;  % length of the windowed segments
+%overlap = 500; % number of samples overlapping for each window position
+overlapBFV = 50; % number of samples overlapping for each window position
+NFFTBFV = 2000;   % number of points in the FFT (the signal is zero-padded to this length)
+%NFFT = winlenEEG;   % number of points in the FFT (the signal is zero-padded to this length)
+subplot(3,1,3)
+[s_EGC1,f_EGC1,t_EGC1] = spectrogram(BFV,winlenBFV,overlapBFV,NFFTBFV,FsBFV);
+imagesc(t_EGC1,f_EGC1,abs(s_EGC1)/winlenBFV)
+axis xy
+ylim([0 2])
+title('BFV')
+ylabel('f (Hz)')
+cb1 = colorbar;
+cb1.Label.String = '|X(f)| (mV)';

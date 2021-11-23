@@ -126,11 +126,11 @@ xlabel('f (Hz)')
 
 % plot the spectrograms of the two ECG signals
 winlen = 3e3;  % length of the windowed segments
-% winlen = 300;  % length of the windowed segments
+%winlen = 300;  % length of the windowed segments
 overlap = 500; % number of samples overlapping for each window position
-% overlap = 50; % number of samples overlapping for each window position
+%overlap = 50; % number of samples overlapping for each window position
 NFFT = 10e3;   % number of points in the FFT (the signal is zero-padded to this length)
-% NFFT = winlen;   % number of points in the FFT (the signal is zero-padded to this length)
+%NFFT = winlen;   % number of points in the FFT (the signal is zero-padded to this length)
 
 figure
 subplot(2,1,1)
