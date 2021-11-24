@@ -324,7 +324,7 @@ subplot(3,1,1)
 imagesc(t_EGC1,f_EGC1,abs(s_EGC1)/winlenEEG)
 axis xy
 ylim([0 10])
-title('ECG1')
+title('EEG1')
 ylabel('f (Hz)')
 cb1 = colorbar;
 cb1.Label.String = '|X(f)| (mV)';
@@ -335,9 +335,9 @@ subplot(3,1,2)
 imagesc(t_EGC2,f_EGC2,abs(s_EGC2)/winlenEEG)
 axis xy
 ylim([0 10])
-title('ECG2')
+title('EEG2')
 ylabel('f (Hz)')
-xlabel('t (s)')
+
 cb2 = colorbar;
 cb2.Label.String = '|X(f)| (mV)';
 
@@ -354,5 +354,6 @@ axis xy
 ylim([0 2])
 title('BFV')
 ylabel('f (Hz)')
+xlabel('t (s)')
 cb1 = colorbar;
 cb1.Label.String = '|X(f)| (mV)';
