@@ -1,0 +1,7 @@
+%i 
+data = load('EEGdata_assignment4.mat');
+
+EEG = data.EEGa4;
+
+Fs = 200;
+
