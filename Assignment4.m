@@ -70,6 +70,43 @@ plot(eeg_filtered_f, eeg_filtered_ph)
 xlabel('Frequency (Hz)')
 ylabel('Phase')
 
+% subplots
+%mag spec
+figure(5)
+subplot(2,1,1)
+plot(eeg_f_1, eeg_mag_1)
+xlabel('Frequency (Hz)')
+ylabel('Magnitude')
+title ('Original EEG Magnitude Spectrum')
+xlabel('Frequency (Hz)')
+xlim([58 62])
+ylim([0 12e-4])
+
+subplot(2,1,2)
+plot(eeg_filtered_f, eeg_filtered_mag)
+xlabel('Frequency (Hz)')
+ylabel('Magnitude')
+title ('IIR Filtered EEG Magnitude Spectrum')
+xlim([58 62])
+ylim([0 12e-4])
+
+%phase spec
+figure(6)
+subplot(2,1,1)
+plot(eeg_f_1, eeg_ph_1)
+xlabel('Frequency (Hz)')
+ylabel('Phase')
+title ('Original EEG Phase Spectrum')
+xlabel('Frequency (Hz)')
+xlim([58 62])
+
+subplot(2,1,2)
+plot(eeg_filtered_f, eeg_filtered_ph)
+title ('IIR Filtered EEG Phase Spectrum')
+xlabel('Frequency (Hz)')
+ylabel('Phase')
+xlim([58 62])
+
 %%
 %FIR
 
@@ -114,6 +151,42 @@ plot(eeg_filtered_f, eeg_filtered_ph)
 xlabel('Frequency (Hz)')
 ylabel('Phase')
 
+% subplots
+%mag spec
+figure(5)
+subplot(2,1,1)
+plot(eeg_f_1, eeg_mag_1)
+xlabel('Frequency (Hz)')
+ylabel('Magnitude')
+title ('Original EEG Magnitude Spectrum')
+xlabel('Frequency (Hz)')
+xlim([58 62])
+ylim([0 12e-4])
+
+subplot(2,1,2)
+plot(eeg_filtered_f, eeg_filtered_mag)
+xlabel('Frequency (Hz)')
+ylabel('Magnitude')
+title ('FIR Filtered EEG Magnitude Spectrum')
+xlim([58 62])
+ylim([0 12e-4])
+
+%phase spec
+figure(6)
+subplot(2,1,1)
+plot(eeg_f_1, eeg_ph_1)
+xlabel('Frequency (Hz)')
+ylabel('Phase')
+title ('Original EEG Phase Spectrum')
+xlabel('Frequency (Hz)')
+xlim([55 65])
+
+subplot(2,1,2)
+plot(eeg_filtered_f, eeg_filtered_ph)
+title ('FIR Filtered EEG Phase Spectrum')
+xlabel('Frequency (Hz)')
+ylabel('Phase')
+xlim([55 65])
 %% 
 %VGRF 
 %input time domain 
@@ -152,7 +225,7 @@ Fs = data.Fs;
 [VGRF_mag_1, VGRF_ph_1, VGRF_f_1] = fourier_dt(VGRF, Fs, 'half');
 
 
-VGRF_filtered = filter (VGRF_IIR, VGRF);
+VGRF_filtered = filter(VGRF_IIR, VGRF);
 [VGRF_filtered_mag, VGRF_filtered_ph, VGRF_filtered_f] = fourier_dt(VGRF_filtered, Fs, 'half');
 
 time = [0.005:1/Fs:length(VGRF)*1/Fs];
@@ -177,6 +250,42 @@ plot(VGRF_filtered_f, VGRF_filtered_ph)
 xlabel('Frequency (Hz)')
 ylabel('Phase')
 
+% subplots
+%mag spec
+figure(4)
+subplot(2,1,1)
+plot(VGRF_f_1, VGRF_mag_1)
+xlabel('Frequency (Hz)')
+ylabel('Magnitude')
+title ('Original VGRF Magnitude Spectrum')
+xlabel('Frequency (Hz)')
+xlim([0 15])
+ylim([0 150])
+
+subplot(2,1,2)
+plot(VGRF_filtered_f, VGRF_filtered_mag)
+xlabel('Frequency (Hz)')
+ylabel('Magnitude')
+title ('IIR Filtered VGRF Magnitude Spectrum')
+ylim([0 150])
+xlim([0 15])
+
+%phase spec
+figure(5)
+subplot(2,1,1)
+plot(VGRF_f_1, VGRF_ph_1)
+xlabel('Frequency (Hz)')
+ylabel('Phase')
+title ('Original VGRF Phase Spectrum')
+xlabel('Frequency (Hz)')
+xlim([0 15])
+
+subplot(2,1,2)
+plot(VGRF_filtered_f, VGRF_filtered_ph)
+xlabel('Frequency (Hz)')
+ylabel('Phase')
+title ('IIR Filtered EEG Phase Spectrum')
+xlim([0 15])
 %%
 %FIR 
 data = load('VGRFdata_assignment4.mat');
@@ -187,7 +296,7 @@ Fs = data.Fs;
 [VGRF_mag_1, VGRF_ph_1, VGRF_f_1] = fourier_dt(VGRF, Fs, 'half');
 
 
-VGRF_filtered = filter (VGRF_FIR, VGRF);
+VGRF_filtered = filter (VGRF_FIR2, VGRF);
 [VGRF_filtered_mag, VGRF_filtered_ph, VGRF_filtered_f] = fourier_dt(VGRF_filtered, Fs, 'half');
 
 time = [0.005:1/Fs:length(VGRF)*1/Fs];
@@ -211,3 +320,40 @@ figure(3)
 plot(VGRF_filtered_f, VGRF_filtered_ph)
 xlabel('Frequency (Hz)')
 ylabel('Phase')
+
+% subplots
+%mag spec
+figure(4)
+subplot(2,1,1)
+plot(VGRF_f_1, VGRF_mag_1)
+xlabel('Frequency (Hz)')
+ylabel('Magnitude')
+title ('Original VGRF Magnitude Spectrum')
+xlabel('Frequency (Hz)')
+xlim([0 15])
+ylim([0 150])
+
+subplot(2,1,2)
+plot(VGRF_filtered_f, VGRF_filtered_mag)
+xlabel('Frequency (Hz)')
+ylabel('Magnitude')
+title ('FIR Filtered VGRF Magnitude Spectrum')
+ylim([0 150])
+xlim([0 15])
+
+%phase spec
+figure(5)
+subplot(2,1,1)
+plot(VGRF_f_1, VGRF_ph_1)
+xlabel('Frequency (Hz)')
+ylabel('Phase')
+title ('Original VGRF Phase Spectrum')
+xlabel('Frequency (Hz)')
+xlim([0 15])
+
+subplot(2,1,2)
+plot(VGRF_filtered_f, VGRF_filtered_ph)
+xlabel('Frequency (Hz)')
+ylabel('Phase')
+title ('FIR Filtered EEG Phase Spectrum')
+xlim([0 15])
