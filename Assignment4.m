@@ -44,7 +44,7 @@ ylabel('Magnitude')
 xlim([58 62])
 ylim([0 12e-4])
 
-eeg_filtered = filter (Hd, EEG);
+eeg_filtered = filter (EEG_IIR, EEG);
 [eeg_filtered_mag, eeg_filtered_ph, eeg_filtered_f] = fourier_dt(eeg_filtered, Fs, 'half');
 
 time = [0.005:1/Fs:length(EEG)*1/Fs];
@@ -88,7 +88,7 @@ ylabel('Magnitude')
 xlim([58 62])
 ylim([0 12e-4])
 
-eeg_filtered = filter (Hd, EEG);
+eeg_filtered = filter (EEG_FIR, EEG);
 [eeg_filtered_mag, eeg_filtered_ph, eeg_filtered_f] = fourier_dt(eeg_filtered, Fs, 'half');
 
 time = [0.005:1/Fs:length(EEG)*1/Fs];
@@ -152,7 +152,7 @@ Fs = data.Fs;
 [VGRF_mag_1, VGRF_ph_1, VGRF_f_1] = fourier_dt(VGRF, Fs, 'half');
 
 
-VGRF_filtered = filter (Hd, VGRF);
+VGRF_filtered = filter (VGRF_IIR, VGRF);
 [VGRF_filtered_mag, VGRF_filtered_ph, VGRF_filtered_f] = fourier_dt(VGRF_filtered, Fs, 'half');
 
 time = [0.005:1/Fs:length(VGRF)*1/Fs];
@@ -187,7 +187,7 @@ Fs = data.Fs;
 [VGRF_mag_1, VGRF_ph_1, VGRF_f_1] = fourier_dt(VGRF, Fs, 'half');
 
 
-VGRF_filtered = filter (Hd, VGRF);
+VGRF_filtered = filter (VGRF_FIR, VGRF);
 [VGRF_filtered_mag, VGRF_filtered_ph, VGRF_filtered_f] = fourier_dt(VGRF_filtered, Fs, 'half');
 
 time = [0.005:1/Fs:length(VGRF)*1/Fs];

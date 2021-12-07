@@ -44,7 +44,7 @@ ylabel('Magnitude')
 xlim([58 62])
 ylim([0 12e-4])
 
-eeg_filtered = filter (Hd, EEG);
+eeg_filtered = filter (, EEG);
 [eeg_filtered_mag, eeg_filtered_ph, eeg_filtered_f] = fourier_dt(eeg_filtered, Fs, 'half');
 
 time = [0.005:1/Fs:length(EEG)*1/Fs];
@@ -115,8 +115,7 @@ xlabel('Frequency (Hz)')
 ylabel('Phase')
 
 %% 
-%VGRF
-%EEG 
+%VGRF 
 %input time domain 
 
 data = load('VGRFdata_assignment4.mat');
@@ -135,12 +134,12 @@ ylabel('Magnitude')
 [VGRF_mag, VGRF_ph, VGRF_f] = fourier_dt(VGRF, Fs, 'half');
 
 figure(2)
-plot(eeg_f, eeg_mag)
+plot(VGRF_f, VGRF_mag)
 xlabel('Frequency (Hz)')
 ylabel('Magnitude')
 
 figure(3)
-plot(eeg_f, eeg_ph)
+plot(VGRF_f, VGRF_ph)
 xlabel('Frequency (Hz)')
 ylabel('Phase')
 %%
@@ -150,64 +149,65 @@ data = load('VGRFdata_assignment4.mat');
 VGRF = data.VGRF;
 Fs = data.Fs;
 
-
 [VGRF_mag_1, VGRF_ph_1, VGRF_f_1] = fourier_dt(VGRF, Fs, 'half');
 
-figure(1)
-plot(VGRF_f_1, VGRF_mag_1)
-xlabel('Frequency (Hz)')
-ylabel('Magnitude')
-
-figure(2)
-plot(VGRF_f_1, VGRF_mag_1)
-
-xlabel('Frequency (Hz)')
-ylabel('Magnitude')
-%xlim([58 62])
-%ylim([0 12e-4])
 
 VGRF_filtered = filter (Hd, VGRF);
 [VGRF_filtered_mag, VGRF_filtered_ph, VGRF_filtered_f] = fourier_dt(VGRF_filtered, Fs, 'half');
 
-figure(3)
-plot(VGRF_filtered_f, VGRF_filtered_mag)
+time = [0.005:1/Fs:length(VGRF)*1/Fs];
+% VGRF_filtered = VGRF_filtered';
 
+%fltered time domain
+figure(1)
+plot(time, VGRF_filtered)
+xlabel('Time (s)')
+ylabel('Magnitude')
+
+
+%filtered mag and phase spec
+figure(2)
+plot(VGRF_filtered_f, VGRF_filtered_mag)
 xlabel('Frequency (Hz)')
 ylabel('Magnitude')
-% xlim([58 62])
 ylim([0 1200])
 
-%% 
-%VGRF
+figure(3)
+plot(VGRF_filtered_f, VGRF_filtered_ph)
+xlabel('Frequency (Hz)')
+ylabel('Phase')
+
+%%
 %FIR 
 data = load('VGRFdata_assignment4.mat');
 
 VGRF = data.VGRF;
 Fs = data.Fs;
 
-
 [VGRF_mag_1, VGRF_ph_1, VGRF_f_1] = fourier_dt(VGRF, Fs, 'half');
 
-figure(1)
-plot(VGRF_f_1, VGRF_mag_1)
-xlabel('Frequency (Hz)')
-ylabel('Magnitude')
-
-figure(2)
-plot(VGRF_f_1, VGRF_mag_1)
-
-xlabel('Frequency (Hz)')
-ylabel('Magnitude')
-%xlim([58 62])
-%ylim([0 12e-4])
 
 VGRF_filtered = filter (Hd, VGRF);
 [VGRF_filtered_mag, VGRF_filtered_ph, VGRF_filtered_f] = fourier_dt(VGRF_filtered, Fs, 'half');
 
-figure(3)
-plot(VGRF_filtered_f, VGRF_filtered_mag)
+time = [0.005:1/Fs:length(VGRF)*1/Fs];
+% VGRF_filtered = VGRF_filtered';
 
+%fltered time domain
+figure(1)
+plot(time, VGRF_filtered)
+xlabel('Time (s)')
+ylabel('Magnitude')
+
+
+%filtered mag and phase spec
+figure(2)
+plot(VGRF_filtered_f, VGRF_filtered_mag)
 xlabel('Frequency (Hz)')
 ylabel('Magnitude')
-% xlim([58 62])
 ylim([0 1200])
+
+figure(3)
+plot(VGRF_filtered_f, VGRF_filtered_ph)
+xlabel('Frequency (Hz)')
+ylabel('Phase')
